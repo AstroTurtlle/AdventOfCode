@@ -31,5 +31,37 @@ def first_last(file):
             elements.append(first_number*10+last_number)
     return elements
 
-elements = first_last("input.txt")
+def first_last2(file):
+    elements = []
+    digits = {"z": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9}
+    digit_names = list(digits.keys())
+    digit_values = list(digits.values())
+    with open(file) as f:
+        lines = f.readlines()
+        for line in lines:
+            minim_nr = 10
+            maxim_nr = -1
+            minim = len(line) - 1
+            maxim = 0
+            for j in range(1,10):
+                if line.find(digit_names[j]) < minim and line.find(digit_names[j]) != -1:
+                    minim = line.find(digit_names[j])
+                    minim_nr = j
+                if line.find(digit_names[j]) > maxim and line.find(digit_names[j]) != -1:
+                    maxim = line.find(digit_names[j])
+                    maxim_nr = j
+                if line.find(str(j)) < minim and line.find(str(j)) != -1:
+                    minim = line.find(str(j))
+                    minim_nr = j
+                if line.find(str(j)) > maxim and line.find(str(j)) != -1:
+                    maxim = line.find(str(j))
+                    maxim_nr = j
+            print(minim_nr)
+            print(maxim_nr)
+            print()
+            elements.append(minim_nr*10+maxim_nr)
+    return elements
+
+elements = first_last2("input.txt")
+print(elements)
 print(sum(elements))
